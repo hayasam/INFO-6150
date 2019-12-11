@@ -1,6 +1,9 @@
 const express=require('express');
 const mongoose=require('mongoose');
-const userRoutes=require('./routes/user')
+const userRoutes=require('./routes/user');
+const morgan=require('morgan');
+const bodyParser=require('body-parser');
+const cookieParser=require('cookie-parser');
 require("dotenv").config();
 
 //for the app
@@ -11,6 +14,11 @@ mongoose.connect(process.env.DATABASE,{
     useCreateIndex:true
     })
     .then(()=>console.log("database is connected"));
+    //middlewares
+    app.use(morgan('dev'));
+    app.use(bodyParser.json());
+    app.use(cookieParser());
+
     //routes middleware
     app.use("/api",userRoutes);
 const port=process.env.PORT||8000;

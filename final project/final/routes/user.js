@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router();
 
-const{sayHi}=require('../controller/user');
-router.get("/",sayHi);
+const{signup}=require('../controller/user');
+router.post("/signup",signup);
 module.exports=router;
