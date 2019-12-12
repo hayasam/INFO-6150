@@ -1,8 +1,8 @@
 const formidable = require('formidable');
 const _ = require('lodash');
 const fs = require('fs');
-const Product = require('../models/product');
-const { errorHandler } = require('../helpers/dbErrorHandler');
+const Product = require('../models/products');
+const { errorHandler } = require('../helper/dbErrorHandler');
 
 
 exports.create = (req, res) => {
@@ -19,15 +19,15 @@ exports.create = (req, res) => {
 
       
 
-        if (files.photo) {
+        if (files.photos) {
            
-            if (files.photo.size > 10000000) {
+            if (files.photos.size > 10000000) {
                 return res.status(400).json({
                     error: 'Image should be less than 10mb in size'
                 });
             }
-            product.photo.data = fs.readFileSync(files.photo.path);
-            product.photo.contentType = files.photo.type;
+            product.photos.data = fs.readFileSync(files.photo.path);
+            product.photos.contentType = files.photo.type;
         }
 
         product.save((err, result) => {
